@@ -102,5 +102,3 @@ def CreateEvent():
     Time2 = request.args.get('Time1')
     print(Title,Time1,Time2)
     return(AddEvent(Title,Time1,Time2))
-
-app.run(debug=True,host='192.168.1.3',port=8080)
