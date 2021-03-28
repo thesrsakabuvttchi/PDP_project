@@ -42,7 +42,7 @@ def Get_Token():
         'code': code,
         'client_id':"131866851144-bqa6rq5h5kfg4ojnhb3lg2au2mags4ov.apps.googleusercontent.com",
         'client_secret':"Ba3wZXev9TM5aiyAhFZGXDBL",
-        'redirect_uri':'http://192.168.1.3.xip.io:8080/',
+        'redirect_uri':'https://chronos-api00.herokuapp.com/',
         'grant_type':'authorization_code'
         }
 
@@ -56,7 +56,7 @@ def Get_Token():
 
 @app.route('/Auth')
 def AutoAuth():
-    authorization_url = "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=131866851144-bqa6rq5h5kfg4ojnhb3lg2au2mags4ov.apps.googleusercontent.com&redirect_uri=http%3A%2F%2F192.168.1.3.xip.io%3A8080%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar&state=ay4l9G34OQVuCOX6LNgTSiyBzqzwnW&access_type=offline&include_granted_scopes=true"
+    authorization_url = "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=131866851144-bqa6rq5h5kfg4ojnhb3lg2au2mags4ov.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fchronos-api00.herokuapp.com%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.metadata.readonly&state=2E934PToHGBTh4KCPXw2WlU5Nk8QOn&access_type=offline&include_granted_scopes=true"
     return redirect(authorization_url)
 
 @app.route('/Get')
