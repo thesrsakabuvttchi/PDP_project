@@ -53,7 +53,7 @@ def Get_Token():
 
     AcessToken  = json.loads(x.text)['access_token']
 
-    return 'Sucess! You Can close the window'
+    return AcessToken
 
 @app.route('/Auth')
 def AutoAuth():
