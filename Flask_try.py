@@ -5,6 +5,8 @@ import json
 from datetime import date
 
 
+AcessToken = ''
+
 def AddEvent(Title,Time1,Time2):
     Auth = open("Tokens.json")
     Auth = Auth.read()
@@ -49,8 +51,7 @@ def Get_Token():
     x = requests.post(url, data = myobj)
     print(x.text)
 
-    of = open("Tokens.json", "w") 
-    of.write(x.text)
+    AcessToken  = json.loads(x.text)['access_token']
 
     return 'Sucess! You Can close the window'
 
@@ -64,9 +65,7 @@ def GetEvents():
     today = str(date.today())
     tomorrow = today[:-1]+str(int(today[-1])+1)
 
-    Auth = open("Tokens.json")
-    Auth = Auth.read()
-    Token = json.loads(Auth)['access_token']
+    Token = AcessToken
 
     url = "https://www.googleapis.com/calendar/v3/calendars/primary/events"
     headers = {
@@ -102,3 +101,5 @@ def CreateEvent():
     Time2 = request.args.get('Time1')
     print(Title,Time1,Time2)
     return(AddEvent(Title,Time1,Time2))
+
+app.run()
