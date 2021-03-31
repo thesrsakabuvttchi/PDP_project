@@ -88,7 +88,7 @@ def GetEvents():
         summary = i['summary']
         begin = i['start'][(next(iter(i['start'])))]
         end = i['end'][next(iter(i['end']))]
-        Events.append({'Title':summary,'Begin':begin[11:15],'End':end})
+        Events.append({'Title':summary,'Begin':begin[11:16],'End':end[11:16]})
 
     JSON = {'events':Events}
     JSON = json.dumps(JSON, indent = 4)  
