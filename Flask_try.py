@@ -66,8 +66,21 @@ def GetEvents():
     tomorrow = today[:-1]+str(int(today[-1])+1)
 
     Token = AcessToken
+    url = "https://www.googleapis.com/calendar/v3/calendars/primary/events"
+    headers = {
+        'authorization': "Bearer "+Token,
+        'content-type': "application/json"
+    }
+    params = {
+        'timeMin' : today+'T00:00:00+05:30',
+        'timeMax' : tomorrow+'T00:00:00+05:30'
+    }
 
-    return("**** **")
+    x = requests.get(url,headers =headers,params=params)
+    if(x.status_code!=200):
+        return "{'error': 200}"
+
+    return(Token)
 
 @app.route('/Add',methods=['GET'])
 def CreateEvent():
