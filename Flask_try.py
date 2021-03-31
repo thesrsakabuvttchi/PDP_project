@@ -2,10 +2,8 @@ from flask import request
 from flask import Flask,redirect
 import requests
 import json
-from datetime import date
+from datetime import date,timedelta
 
-
-AcessToken = ''
 
 def AddEvent(Title,Time1,Time2):
     Auth = open("Tokens.json")
@@ -51,9 +49,10 @@ def Get_Token():
     x = requests.post(url, data = myobj)
     print(x.text)
 
-    AcessToken  = json.loads(x.text)['access_token']
+    of = open("Tokens.json", "w") 
+    of.write(x.text)
 
-    return AcessToken
+    return 'Sucess! You Can close the window'
 
 @app.route('/Auth')
 def AutoAuth():
@@ -63,9 +62,12 @@ def AutoAuth():
 @app.route('/Get')
 def GetEvents():
     today = str(date.today())
-    tomorrow = today[:-1]+str(int(today[-1])+1)
+    tomorrow = str(date.today() + timedelta(days=1))
 
-    Token = AcessToken
+    Auth = open("Tokens.json")
+    Auth = Auth.read()
+    Token = json.loads(Auth)['access_token']
+
     url = "https://www.googleapis.com/calendar/v3/calendars/primary/events"
     headers = {
         'authorization': "Bearer "+Token,
@@ -78,9 +80,20 @@ def GetEvents():
 
     x = requests.get(url,headers =headers,params=params)
     if(x.status_code!=200):
-        return "{'error': 200}"
+        return None
+    Data = json.loads(x.text)['items']
 
-    return(Token)
+    Events = []
+    for i in Data:
+        summary = i['summary']
+        begin = i['start'][(next(iter(i['start'])))]
+        end = i['end'][next(iter(i['end']))]
+        Events.append({'Title':summary,'Begin':begin,'End':end})
+
+    JSON = {'events':Events}
+    JSON = json.dumps(JSON, indent = 4)  
+
+    return(JSON)
 
 @app.route('/Add',methods=['GET'])
 def CreateEvent():
