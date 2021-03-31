@@ -67,32 +67,7 @@ def GetEvents():
 
     Token = AcessToken
 
-    url = "https://www.googleapis.com/calendar/v3/calendars/primary/events"
-    headers = {
-        'authorization': "Bearer "+Token,
-        'content-type': "application/json"
-    }
-    params = {
-        'timeMin' : today+'T00:00:00+05:30',
-        'timeMax' : tomorrow+'T00:00:00+05:30'
-    }
-
-    x = requests.get(url,headers =headers,params=params)
-    if(x.status_code!=200):
-        return None
-    Data = json.loads(x.text)['items']
-
-    Events = []
-    for i in Data:
-        summary = i['summary']
-        begin = i['start'][(next(iter(i['start'])))]
-        end = i['end'][next(iter(i['end']))]
-        Events.append({'Title':summary,'Begin':begin,'End':end})
-
-    JSON = {'events':Events}
-    JSON = json.dumps(JSON, indent = 4)  
-
-    return(JSON)
+    return("**** **")
 
 @app.route('/Add',methods=['GET'])
 def CreateEvent():
