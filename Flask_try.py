@@ -41,7 +41,7 @@ def Get_Token():
     myobj = {
         'code': code,
         'client_id':"131866851144-bqa6rq5h5kfg4ojnhb3lg2au2mags4ov.apps.googleusercontent.com",
-        'client_secret':"Ba3wZXev9TM5aiyAhFZGXDBL",
+        'client_secret':"*********",
         'redirect_uri':'https://chronos-api00.herokuapp.com/',
         'grant_type':'authorization_code'
         }
